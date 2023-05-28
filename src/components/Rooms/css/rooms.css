@@ -1,0 +1,28 @@
+.card {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 80%;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 20px;
+  }
+  
+  .imagebox {
+    flex: 0 0 40%;
+  }
+  
+  .card-image {
+    margin: 20px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #211f1f;
+  }
+  
+  .card-content {
+    flex: 1;
+    padding-left: 60px;
+  }
+  

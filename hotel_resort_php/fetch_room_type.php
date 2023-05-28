@@ -8,6 +8,8 @@ function getRoomTypes() {
     $query = "SELECT `room_type_id`, `room_type`, `room_type_desc`, `price`, `max_person`, `image` FROM `room_type`";
     $result = $conn->query($query);
 
+
+    
     // Check if the query was successful
     if ($result) {
         $roomTypes = array();

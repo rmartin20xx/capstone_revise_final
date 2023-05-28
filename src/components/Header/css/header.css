@@ -1,3 +1,8 @@
+h1{
+  margin: 120px 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
 .headerbox {
   text-transform: capitalize;
   display: flex;
@@ -6,7 +11,11 @@
   justify-content: space-between;
   padding: 20px;
   background-color: #f2f2f2;
-  position: relative;
+  position: fixed; /* Change position to fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100; /* Set a higher z-index value */
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -62,7 +71,6 @@
   justify-content: flex-end;
   flex: 1;
 }
-
 
 @media (max-width: 768px) {
   .headerbox {

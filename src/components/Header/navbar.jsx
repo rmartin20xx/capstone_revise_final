@@ -11,9 +11,9 @@ function Navbar() {
     <li>
       <Link to="/rooms">Rooms</Link>
     </li>
-    <li>
+    {/* <li>
       <Link to="/booking">Booking</Link>
-    </li>
+    </li> */}
   </ul>
 </nav>
   );
