@@ -12,7 +12,7 @@ const RoomTypes = () => {
 
   const fetchRoomTypes = () => {
     axios
-      .get("http://localhost:80/api/fetch_room.php")
+      .get("http://localhost:80/hotel_resort_final/api/fetch_room.php")
       .then((response) => {
         setRoomTypes(response.data);
       })
