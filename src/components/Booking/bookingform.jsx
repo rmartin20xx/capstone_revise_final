@@ -1,107 +1,151 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import RoomDropdown from "./roomtype_dropdown";
+import "./css/bookingform.css"; // Import the CSS file for styling
 
 const BookingForm = () => {
-  const [customerName, setCustomerName] = useState('');
-  const [contactNo, setContactNo] = useState('');
-  const [email, setEmail] = useState('');
-  const [roomId, setRoomId] = useState('');
-  const [bookingDate, setBookingDate] = useState('');
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
-  const [totalPrice, setTotalPrice] = useState('');
-  const [remainingPrice, setRemainingPrice] = useState('');
-  const [paymentStatus, setPaymentStatus] = useState('');
-  const [idCardType, setIdCardType] = useState(''); // Add state for id card type
-  const [idCardNo, setIdCardNo] = useState(''); // Add state for id card number
-  const [address, setAddress] = useState(''); // Add state for address
+  const [customerName, setCustomerName] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [email, setEmail] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
+  const [address, setAddress] = useState("");
+  const [selectedRoomTypeId, setSelectedRoomTypeId] = useState(null); // State for storing the selected room type ID
+
+  const handleRoomSelect = (room) => {
+    setSelectedRoomTypeId(room.roomTypeId); // Set the selected room type ID
+    setTotalPrice(room.price);
+    console.log("Selected Room:", room.roomTypeId);
+    console.log("Selected Room:", room.price);
+  };
+
+  const computeTotalDays = (checkInDate, checkOutDate) => {
+    const startDate = new Date(checkInDate);
+    const endDate = new Date(checkOutDate);
+    const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+    const totalDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return totalDays;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const totalDays = computeTotalDays(checkIn, checkOut);
+    const computedTotalPrice = totalDays * totalPrice;
 
     const bookingData = {
       customer_name: customerName,
       contact_no: contactNo,
       email: email,
-      id_card_type_id: idCardType,
-      id_card_no: idCardNo,
       address: address,
-      room_id: roomId,
-      booking_date: bookingDate,
       check_in: checkIn,
       check_out: checkOut,
-      total_price: totalPrice,
-      remaining_price: remainingPrice,
-      payment_status: paymentStatus,
+      total_price: computedTotalPrice,
+      room_type_id: selectedRoomTypeId,
     };
 
-    axios.post('http://localhost:80/hotel_resort_final/api/save_booking.php', bookingData)
-      .then((response) => {
-        console.log(response.data);
-        // Handle success or display a success message
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error or display an error message
-      });
+    const totalPriceFormatted = computedTotalPrice.toFixed(2);
+    const totalPriceWithCurrency = `₱${totalPriceFormatted}`;
+
+    const confirmMessage = `Are you sure you want to save this booking?\n\nCustomer Name: ${customerName}\nContact No: ${contactNo}\nEmail: ${email}\nCheck-in: ${checkIn}\nCheck-out: ${checkOut}\nTotal Days: ${totalDays}\nTotal Price: ${totalPriceWithCurrency}\nAddress: ${address}`;
+
+    if (window.confirm(confirmMessage)) {
+      axios
+        .post(
+          "http://localhost:80/hotel_resort_final/api/save_booking.php",
+          bookingData
+        )
+        .then((response) => {
+          console.log(response.data);
+          // Handle success or display a success message
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error or display an error message
+        });
+    }
   };
 
+  const currentDate = new Date().toISOString().split("T")[0];
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="booking-form">
       <h2>Booking Form</h2>
-      <label>
+      <RoomDropdown onRoomSelect={handleRoomSelect} />
+      <label className="form-label">
         Customer Name:
-        <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+        <input
+          type="text"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
+      <label className="form-label">
         Contact No:
-        <input type="text" value={contactNo} onChange={(e) => setContactNo(e.target.value)} required />
+        <input
+          type="text"
+          value={contactNo}
+          onChange={(e) => setContactNo(e.target.value)}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
+      <label className="form-label">
         Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
-        Room ID:
-        <input type="text" value={roomId} onChange={(e) => setRoomId(e.target.value)} required />
-      </label>
-      <label>
-        Booking Date:
-        <input type="date" value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} required />
-      </label>
-      <label>
+      <label className="form-label">
         Check-in:
-        <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} required />
+        <input
+          type="date"
+          value={checkIn}
+          onChange={(e) => setCheckIn(e.target.value)}
+          min={currentDate}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
+      <label className="form-label">
         Check-out:
-        <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} required />
+        <input
+          type="date"
+          value={checkOut}
+          onChange={(e) => setCheckOut(e.target.value)}
+          min={checkIn || currentDate}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
+      <label className="form-label total-price">
         Total Price:
-        <input type="number" step="0.01" value={totalPrice} onChange={(e) => setTotalPrice(e.target.value)} required />
+        <input
+          type="number"
+          step="0.01"
+          value={totalPrice}
+          onChange={(e) => setTotalPrice(parseFloat(e.target.value))}
+          className="form-input"
+        />
       </label>
-      <label>
-        Remaining Price:
-        <input type="number" step="0.01" value={remainingPrice} onChange={(e) => setRemainingPrice(e.target.value)} required />
+      <label className="form-label">
+        Address:
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          required
+          className="form-input"
+        />
       </label>
-      <label>
-        Payment Status:
-        <input type="text" value={paymentStatus} onChange={(e) => setPaymentStatus(e.target.value)} required />
-      </label>
-      <label>
-        ID Card Type: {/* Add input for ID Card Type */}
-        <input type="text" value={idCardType} onChange={(e) => setIdCardType(e.target.value)} required />
-      </label>
-      <label>
-        ID Card No: {/* Add input for ID Card Number */}
-        <input type="text" value={idCardNo} onChange={(e) => setIdCardNo(e.target.value)} required />
-      </label>
-      <label>
-        Address: {/* Add input for Address */}
-        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required />
-      </label>
-      <button type="submit">Submit</button>
+      <button type="submit" className="submit-btn">Submit</button>
     </form>
   );
 };

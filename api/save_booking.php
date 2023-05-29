@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($customer_id) {
         $room_type_id = $post_data['room_type_id'] ?? '';
         $room_id = $post_data['room_id'] ?? '';
-        $booking_date = $post_data['booking_date'] ?? '';
         $check_in = $post_data['check_in'] ?? '';
         $check_out = $post_data['check_out'] ?? '';
         $total_price = $post_data['total_price'] ?? '';
@@ -36,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $payment_status = $post_data['payment_status'] ?? '';
 
         // Create a new booking
-        createBooking($customer_id, $room_type_id, $room_id, $booking_date, $check_in, $check_out, $total_price, $remaining_price, $payment_status);
+        createBooking($customer_id, $room_type_id, $room_id, $check_in, $check_out, $total_price, $remaining_price, $payment_status);
     }
 }
 
@@ -66,14 +65,14 @@ function createCustomer($customer_name, $contact_no, $email, $id_card_type_id, $
 }
 
 // Create a new booking
-function createBooking($customer_id, $room_type_id, $room_id, $booking_date, $check_in, $check_out, $total_price, $remaining_price, $payment_status) {
+function createBooking($customer_id, $room_type_id, $room_id, $check_in, $check_out, $total_price, $remaining_price, $payment_status) {
     // Use the global $conn variable from dbconn.php
     global $conn;
 
     if ($conn) {
         // Prepare the INSERT statement
-        $stmt = $conn->prepare("INSERT INTO `booking` (`customer_id`, `room_type_id`, `room_id`, `booking_date`, `check_in`, `check_out`, `total_price`, `remaining_price`, `payment_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiisssdds", $customer_id, $room_type_id, $room_id, $booking_date, $check_in, $check_out, $total_price, $remaining_price, $payment_status);
+        $stmt = $conn->prepare("INSERT INTO `booking` (`customer_id`, `room_type_id`, `room_id`, `check_in`, `check_out`, `total_price`, `remaining_price`, `payment_status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiisssdd", $customer_id, $room_type_id, $room_id, $check_in, $check_out, $total_price, $remaining_price, $payment_status);
 
         // Execute the statement
         $stmt->execute();
