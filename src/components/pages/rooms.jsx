@@ -24,7 +24,7 @@ const Rooms = () => {
 
   return (
     <div>
-      <h1>Room type</h1>
+      <h1>Rooms Available</h1>
       {roomTypes.map((roomType) => (
         <React.Fragment key={roomType.roomTypeId}>
           <div className="card">
@@ -49,13 +49,7 @@ const Rooms = () => {
               </p>
               <Link
                 to={{
-                  pathname: "/booking",
-                  search: `?room_type_id=${
-                    roomType.roomTypeId
-                  }&room_type=${encodeURIComponent(
-                    roomType.roomType
-                  )}&price=${encodeURIComponent(roomType.price)}`,
-                }}
+                  pathname: "/booking"}}
                 className="btn-reserve"
               >
                 Reserve

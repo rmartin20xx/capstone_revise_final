@@ -26,12 +26,16 @@ h1{
 }
 
 .headerbox ul {
+  font-size: 20px;
+  font-weight: bolder;
+  text-transform: uppercase;
   list-style-type: none;
-  margin: 0;
+  margin: 0 80px;
   padding: 0;
 }
 
 .headerbox ul li {
+  margin: 0 40px;
   display: inline-block;
   margin-right: 10px;
 }

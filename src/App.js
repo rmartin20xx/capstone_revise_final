@@ -7,6 +7,8 @@ import Footer from "./components/pages/footer";
 import Rooms from "./components/pages/rooms";
 
 
+
+
 import Header from "./components/Header/header";
 
 
@@ -20,6 +22,7 @@ function App() {
         <Route path="/" element={<Landingpage />} />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/rooms" element={<Rooms />} />
+
       </Routes>
 
 

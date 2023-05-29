@@ -1,6 +1,5 @@
 import React from "react";
 import "../Footer/footer.css";
-import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -63,9 +62,6 @@ export default function Footer() {
             />
           </div>
         </div>
-      </div>
-      <div>
-        <Link to="/admin">System Login</Link>
       </div>
     </div>
   );

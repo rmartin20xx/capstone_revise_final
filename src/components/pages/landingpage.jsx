@@ -10,6 +10,7 @@ function LandingPage() {
       </div>
       <div className="landing-page">
         <Aboutus />
+        
       </div>
     </>
   );
