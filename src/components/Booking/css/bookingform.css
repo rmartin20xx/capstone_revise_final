@@ -1,0 +1,45 @@
+.booking-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .booking-container h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .booking-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .booking-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .booking-container input,
+  .booking-container textarea {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 220px;
+  }
+  
+  .booking-container button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .booking-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .booking-container p.error-message {
+    color: red;
+    margin-top: 0.5rem;
+  }
+  

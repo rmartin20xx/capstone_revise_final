@@ -3,7 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../Rooms/css/rooms.css";
 
-const RoomTypes = () => {
+
+const Rooms = () => {
   const [roomTypes, setRoomTypes] = useState([]);
 
   useEffect(() => {
@@ -67,4 +68,4 @@ const RoomTypes = () => {
   );
 };
 
-export default RoomTypes;
+export default Rooms;
