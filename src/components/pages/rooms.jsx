@@ -52,7 +52,7 @@ const Rooms = () => {
                   pathname: "/booking"}}
                 className="btn-reserve"
               >
-                Reserve
+                Book Now
               </Link>
             </div>
           </div>

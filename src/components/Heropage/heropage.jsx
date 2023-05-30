@@ -10,7 +10,7 @@ export default function Hero() {
         <h1>Where Luxury Meets Tranquility</h1>
         <p>Escape to serenity and indulge in opulent bliss.</p>
         <div>
-          <Link to="/rooms" className="logo-link">
+          <Link to="/booking" className="logo-link">
             <Button className="book-now">Book Now</Button>
           </Link>
         </div>

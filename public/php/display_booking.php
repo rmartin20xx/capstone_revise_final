@@ -19,7 +19,7 @@ if ($result && $result->num_rows > 0) {
     // Display the booking information
     echo "<table class='booking-table'>";
     echo "<tr>
-              <th>Booking ID</th>
+
               <th>Booking Date</th>
               <th>Room Type</th>
               <th>Customer Name</th>
@@ -36,7 +36,7 @@ if ($result && $result->num_rows > 0) {
         $formattedPriceWithSign = '₱' . $formattedPrice;
         
         echo "<tr>
-                  <td>".$row['booking_id']."</td>
+
                   <td>".$row['formatted_booking_date']."</td>
                   <td>".$row['room_type']."</td>
                   <td>".$row['customer_name']."</td>
